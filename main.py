@@ -1,4 +1,3 @@
-
 import random
 
 board = ["-", "-", "-",
@@ -16,7 +15,7 @@ def take_turn(player, is_computer=False):
     print(player + "'s turn.")
     if is_computer:
         available_positions = [i for i, mark in enumerate(board) if mark == "-"]
-        
+
         # Check for winning move
         for pos in available_positions:
             board[pos] = player  
@@ -38,7 +37,14 @@ def take_turn(player, is_computer=False):
                 if board[4] == "-":
                     position = 4
                 else:
-                    position = random.choice(available_positions)
+                    #choose a corner position
+                    corners = [0, 2, 6, 8]
+                    available_corners = [pos for pos in corners if board[pos] == "-"]
+                    if available_corners:
+                        position = random.choice(available_corners)
+                    else:
+                        position = random.choice(available_positions)
+
     else:
         position = input("Choose a position from 1-9: ")
         while position not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
@@ -50,7 +56,7 @@ def take_turn(player, is_computer=False):
     print_board()
 
 
-    
+
 
 
 def check_game_over():
